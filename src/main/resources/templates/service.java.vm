@@ -1,0 +1,24 @@
+package ${basePackage}.core.business.service;
+
+import ${basePackage}.core.business.entity.${table.entityName};
+
+
+import com.baomidou.mybatisplus.extension.service.IService;;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.serviceName} extends IService<${table.entityName}> {
+    Page<${table.entityName}> findList(Map<String,Object> map,Page<${table.entityName}> page);
+}
+

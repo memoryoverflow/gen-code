@@ -1,0 +1,11 @@
+package ${basePackage}${currentPackage};
+
+/**
+ * <br>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ConsVal
+{
+}

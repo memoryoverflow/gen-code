@@ -1,0 +1,69 @@
+package ${basePackage}.core.business.controller;
+
+
+
+import ${basePackage}.core.business.service.${table.serviceName};
+import ${basePackage}.core.business.entity.${table.entityName};
+import ${basePackage}.common.frame.web.model.R ;
+import ${basePackage}.common.frame.web.BaseController;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+
+@RestController
+@RequestMapping("/${table.reqPath}")
+public class ${table.controllerName} extends BaseController<${table.entityName}> {
+
+    @Autowired
+    private ${table.serviceName} ${table.serviceName_};
+
+
+    @GetMapping("/list")
+    public R list(@RequestParam Map<String, Object> param)
+    {
+        return success(${table.serviceName_}.findList(param,page()));
+    }
+
+
+    @PostMapping("/save")
+    public R insertSave(@Valid @RequestBody ${table.entityName} ${table.entityName_})
+    {
+        return result(${table.serviceName_}.save(${table.entityName_}));
+    }
+
+
+    @PutMapping("/update")
+    public R editSave(@Valid @RequestBody ${table.entityName} ${table.entityName_})
+    {
+        return result(${table.serviceName_}.updateById(${table.entityName_}));
+    }
+
+
+    @GetMapping("/selectById/{id}")
+    public R selectById(@PathVariable("id") String id)
+    {
+        return success(${table.serviceName_}.getById(id));
+    }
+
+
+    @DeleteMapping("/{ids}/remove")
+    public R delete(@PathVariable("ids") List<String> id)
+    {
+        return result(${table.serviceName_}.removeByIds(id));
+    }
+
+}
+

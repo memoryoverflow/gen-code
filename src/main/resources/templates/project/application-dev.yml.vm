@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+  # 项目访问路径
+  servlet:
+    context-path: /
+
+
+
+# 数据源
+spring:
+
+  #数据源
+  datasource:
+    url: jdbc:mysql://${dbHost}:${dbPort}/${dbName}?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${dbRoot}
+    password: ${dbPwd}
+
+
+########### MyBatis ############
+mybatis-plus:
+  mapper-locations: classpath:mapper/**.xml
+  typeAliasesPackage: ${basePackage}.core.business.entity
+  global-config:
+    db-config:
+    #  logic-delete-value: 1       # 逻辑已删除值(默认为 1)
+    #  logic-not-delete-value: 0   # 逻辑未删除值(默认为 0)
+      table-prefix: ${tablePrefix}  # 统一表前缀名
+
+
+    db-type: mysql
+    # Mapper 对应的 XML 文件，默认不自动刷新
+    #如果配置了该属性，Mapper 对应的 XML 文件会自动刷新，更改 XML 文件后，无需再次重启工程
+    refresh: true
+
+
+
+  configuration:
+    map-underscore-to-camel-case: ${hump}
+    # 延迟加载（按需加载） 在一对多或者一对一分步查询时候按需加载
+  #    lazy-loading-enabled: true
+  #    aggressive-lazy-loading: false
+  #    cache-enabled: true

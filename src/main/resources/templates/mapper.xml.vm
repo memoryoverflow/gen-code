@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${basePackage}.core.business.mapper.${table.mapperName}">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="${basePackage}.core.business.entity.${table.entityName}">
+        #foreach($field in ${table.fields})
+            #if($field.primaryKey==true)##生成主键排在第一位
+                <id column="${field.column}" property="${field.name}"/>
+            #else
+                <result column="${field.column}" property="${field.name}"/>
+            #end
+        #end
+    </resultMap>
+
+
+    <!-- 通用查询结果列   -->
+    <sql id="Base_Column_List">
+      #foreach($field in ${table.fields})
+        ${field.column}
+        #if($foreach.hasNext)
+          ,
+      #end
+    #end
+    </sql>
+
+
+    <select id="findList" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ${table.tableName}
+        <where>
+            #foreach($field in ${table.fields})
+                #if($field.javaType=='Date')
+                    <if test="map.${field.name} !=null and map.${field.name} !=''">
+                        <![CDATA[   and DATE_FORMAT(t.${field.column}, '%Y-%m-%d') =  DATE_FORMAT(#{map.beginTime}, '%Y-%m-%d')   ]]>
+                    </if>
+                #elseif($field.javaType=='String')
+                    <if test="map.${field.name} !=null and map.${field.name} !=''">
+                        AND ${field.column} like concat('%',#{map.${field.name}},'%')
+                    </if>
+                #else
+                    <if test="map.${field.name} !=null and map.${field.name} !=''">
+                        AND ${field.column}=#{map.${field.name}}
+                    </if>
+                #end
+            #end
+        </where>
+    </select>
+
+</mapper>

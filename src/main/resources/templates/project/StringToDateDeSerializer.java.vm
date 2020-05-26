@@ -1,0 +1,30 @@
+package ${basePackage}.common.config;
+
+import ${basePackage}.common.enums.LPATTERM;
+import ${basePackage}.common.utils.DateTimeUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import lombok.SneakyThrows;
+
+import java.io.IOException;
+import java.util.Date;
+
+/**
+ * <br>
+ *
+ * @RequestBody 日期参数绑定转换
+ * @author ${author}
+ * @since ${date}
+ */
+public class StringToDateDeSerializer extends JsonDeserializer<Date>
+{
+
+    @SneakyThrows
+    @Override
+    public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException
+    {
+        return DateTimeUtils.format(p.getText(), LPATTERM.YMDMS_);
+    }
+}

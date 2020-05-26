@@ -1,0 +1,72 @@
+package ${basePackage}.core.business.entity;
+
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.util.*;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import ${basePackage}.common.frame.web.model.BaseEntity;
+import ${basePackage}.common.config.StringToDateDeSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * <p>
+ * $!{table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if($lombok==true)
+@Data
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
+#end
+@TableName(value ="${table.tableName}")
+public class ${table.entityName} extends BaseEntity
+{
+    private static final long serialVersionUID = 1L;
+
+
+    #foreach($field in ${table.fields})
+
+    #if($field.comment)
+
+    /**
+     * <br>
+     * ${field.comment}
+     */
+    #end
+    #if($field.primaryKey==true && $field.auto==false)
+    @TableId()
+    #elseif($field.primaryKey==true && $field.auto==true)
+    @TableId(type = IdType.AUTO)
+    #end
+
+        #if($field.javaType=='Date')
+    @JsonDeserialize(using = StringToDateDeSerializer.class)
+        #end
+
+    private ${field.javaType} ${field.name};
+    #end
+
+    #if($lombok==false)
+    #foreach($field in ${table.fields})
+    public ${table.entityName} ${field.setName}(${field.javaType} ${field.name})
+    {
+       this.${field.name}=${field.name};
+       return this;
+    }
+
+    public ${field.javaType} ${field.getName}()
+    {
+       return this.${field.name};
+    }
+
+    #end
+    #end
+}
+
