@@ -21,7 +21,7 @@
 
         <mybatis-v>3.1.1</mybatis-v>
         <mysql-version>5.1.47</mysql-version>
-        <http-core-v>4.5.9</http-core-v>
+        <http-core-v>4.5.13</http-core-v>
         <fastjson-v>1.2.47</fastjson-v>
         <commons-collections>3.2.2</commons-collections>
         <commom-lang3>3.8.1</commom-lang3>
