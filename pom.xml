@@ -27,7 +27,7 @@
         <commom-lang3>3.8.1</commom-lang3>
         <java_version>1.8</java_version>
         <shiro-v>1.4.0</shiro-v>
-        <gson-v>2.8.6</gson-v>
+        <gson-v>2.8.9</gson-v>
     </properties>
 
 
